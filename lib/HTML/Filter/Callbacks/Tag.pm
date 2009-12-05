@@ -164,6 +164,7 @@ sub add_attr {
       $replaced = 1;
       last;
     }
+    $offset -= 2;
   }
   push @{ $self->{attrs} ||= [] }, $name, qq/"$value"/ unless $replaced;
   $self->{is_dirty} = 1;
