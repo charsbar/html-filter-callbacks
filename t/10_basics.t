@@ -33,7 +33,7 @@ add_callbacks(
       },
       end   => sub {
         my ($tag, $c) = @_;
-        $tag->prepend(qq/<input type="submit">\n/)
+        $tag->prepend(qq/<input type="submit">/)
           unless $c->stash->{__form_has_submit};
         delete $c->stash->{__form_has_submit};
       },
@@ -78,21 +78,14 @@ __END__
 <img src="bar" name="foo">
 === add a submit button
 --- add_submit
-<form>
-</form>
+<form></form>
 ---
-<form>
-<input type="submit">
-</form>
+<form><input type="submit"></form>
 === don't need to add the submit button
 --- add_submit
-<form>
-<input type="submit">
-</form>
+<form><input type="submit"></form>
 ---
-<form>
-<input type="submit">
-</form>
+<form><input type="submit"></form>
 === replace blank attr
 --- replace_blank_attr
 <p id="">
