@@ -156,7 +156,16 @@ sub add_attr {
   my ($self, $name, $value) = @_;
   $value = $self->_remove_quote($value);
   $value = encode_entities($value, q/<>&"'/);
-  push @{ $self->{attrs} ||= [] }, $name, qq/"$value"/;
+  my $offset = scalar @{ $self->{attrs} ||= [] };
+  my $replaced;
+  while ($offset > 0) {
+    if ($self->{attrs}->[$offset - 2] eq $name) {
+      $self->{attrs}->[$offset - 1] = $value;
+      $replaced = 1;
+      last;
+    }
+  }
+  push @{ $self->{attrs} ||= [] }, $name, qq/"$value"/ unless $replaced;
   $self->{is_dirty} = 1;
 }
 
@@ -204,39 +213,69 @@ __END__
 
 HTML::Filter::Callbacks::Tag
 
-=head1 SYNOPSIS
-
 =head1 DESCRIPTION
+
+This will be passed to the callbacks you add to the L<HTML::Filter::Callbacks> object. See the SYNOPSIS of L<HTML::Filter::Callbacks> for usage.
 
 =head1 METHODS
 
 =head2 new
 
+creates an object.
+
 =head2 set
+
+used internally to initialize the object.
 
 =head2 name
 
+returns the tag name.
+
 =head2 attr
+
+takes an attribute name and returns the attribute value or undef if there's no attribute of the name.
 
 =head2 text
 
+returns any text (everything other than tags) C<before> the tag. This typically returns white spaces between the tags for an open (start) tag, and the content of the tag for a close (end) tag, but don't count on that as HTMLs are not always well-structured.
+
+You can replace the text by passing an extra argument.
+
 =head2 add_attr
+
+takes an attribute name and its value to add to the tag. If there's an attribute of the name, the value will be replaced.
 
 =head2 remove_attr
 
+takes an attribute name to remove. You can also pass a regular expression if you remove arbitrary attributes.
+
 =head2 replace_attr
+
+takes an attribute name and its value to replace. You can also pass a regular expression if you replace arbitrary attributes.
 
 =head2 remove_tag
 
+removes the tag entirely. Note that this only removes a start or end tag, not the pair. So you usually need to add another callback to remove the counterpart.
+
 =head2 remove_text
+
+removes the text before the tag.
 
 =head2 remove_text_and_tag
 
+removes both the text and the tag.
+
 =head2 append
+
+takes an HTML to insert after the tag. As of this writing, you need to escape the HTML by yourself if necessary.
 
 =head2 prepend
 
+takes an HTML to insert just before the tag, namely between the skipped text and the tag. As of this writing, you need to escape the HTML by yourself if necessary.
+
 =head2 as_string
+
+returns an HTML expression of the tag (with the skipped and inserted texts).
 
 =head1 AUTHOR
 

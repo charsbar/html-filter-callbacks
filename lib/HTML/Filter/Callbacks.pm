@@ -139,7 +139,7 @@ HTML::Filter::Callbacks - modify HTML with callbacks
 
 =head1 DESCRIPTION
 
-This is a rather simple HTML filter, based on L<HTML::Parser>. 
+This is a rather simple HTML filter, based on L<HTML::Parser>. It only looks for tags you add callbacks to modify something that is related to the tags (i.e. tag attributes and related comments and texts that it looked and skipped). If you want finer control, you can add extra handlers to the filter. See the SYNOPSIS and tests for usage.
 
 =head1 METHODS
 
@@ -149,13 +149,19 @@ creates an object.
 
 =head2 process
 
+takes an (X)HTML, applies all the callbacks, and returns the result.
+
 =head2 add_callbacks
+
+takes an array of callbacks, which typically have a tag name, and a hash reference which holds a callback for the open tag of the name (C<start => {...}>), and a callback for the close tag of the name (C<end => {...}>). The callbacks will take a HTML::Filter::Callbacks::Tag object, and the filter object itself as a context holder (stash).
 
 =head2 stash
 
+is just a hash reference which you can use freely in the callbacks.
+
 =head2 init
 
-used internally.
+used internally to register default callbacks.
 
 =head1 SEE ALSO
 
