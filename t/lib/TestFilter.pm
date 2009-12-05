@@ -14,7 +14,12 @@ sub add_callbacks { %CALLBACKS = @_ }
 sub test_all {
   my @blocks;
   my $test;
-  while (<main::DATA>) {
+  my $fh = do {
+    my $caller = caller;
+    no strict 'refs';
+    *{"$caller\::DATA"};
+  };
+  while (<$fh>) {
     if (/^===(?:\s+(.+))?/) {
       push @blocks, $test if $test;
       $test = { mes => $1, reading => '' };
