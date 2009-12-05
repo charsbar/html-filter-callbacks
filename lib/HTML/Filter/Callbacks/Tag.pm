@@ -160,7 +160,7 @@ sub add_attr {
   my $replaced;
   while ($offset > 0) {
     if ($self->{attrs}->[$offset - 2] eq $name) {
-      $self->{attrs}->[$offset - 1] = $value;
+      $self->{attrs}->[$offset - 1] = qq/"$value"/;
       $replaced = 1;
       last;
     }
