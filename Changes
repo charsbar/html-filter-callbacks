@@ -1,5 +1,8 @@
 Revision history for HTML-Filter-Callbacks
 
+0.03 2010/03/16
+  - fixed empty tag handling
+
 0.02 2009/12/05
   - no code changes; just fixed a test
 

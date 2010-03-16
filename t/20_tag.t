@@ -127,6 +127,14 @@ my @callbacks = (
       like $html => qr{<input type="submit">\n</form>}, 'text is prepended';
     },
   },
+  hr => {
+    start => sub {
+      my $tag = shift;
+      $tag->remove_attr('clear');
+      my $html = $tag->as_string;
+      like $html => qr{<hr />}, 'stays empty';
+    },
+  }
 );
 
 plan tests => (scalar @callbacks / 2) + 4;
@@ -157,6 +165,7 @@ div body
 </body>
 <form>
 </form>
+<hr clear="all" />
 </html>
 
 HTML

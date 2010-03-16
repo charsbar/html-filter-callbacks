@@ -44,7 +44,13 @@ add_callbacks(
         $c->stash->{__form_has_submit} = 1
           if $tag->attr('type') eq 'submit';
       },
-    }
+    },
+  },
+  br_with_space => {
+    '*' => { start => sub { shift->remove_attr(qr/^on_/) } },
+  },
+  br_without_space => {
+    '*' => { start => sub { shift->remove_attr(qr/^on_/) } },
   },
 );
 
@@ -65,6 +71,43 @@ __END__
 <html>
 <head>
 </head>
+</html>
+=== remove script tags
+--- remove_script
+<html>
+<head>
+<!-- javascript
+//-->
+</script>
+</head>
+</html>
+---
+<html>
+<head>
+</head>
+</html>
+=== remove script tags
+--- remove_script
+<html>
+<head>
+ <!-- javascript
+-->
+</head>
+<body>
+ <!-- javascript
+-->
+</body>
+</html>
+---
+<html>
+<head>
+ <!-- javascript
+-->
+</head>
+<body>
+ <!-- javascript
+-->
+</body>
 </html>
 === remove on_ attributes
 --- remove_on_attr
@@ -91,3 +134,19 @@ __END__
 <p id="">
 ---
 <p id="pid">
+=== br
+--- br_without_space
+<br/>
+---
+<br/>
+=== br_space
+--- br_with_space
+<br />
+ <!--
+fa;lksj
+-->
+---
+<br />
+ <!--
+fa;lksj
+-->

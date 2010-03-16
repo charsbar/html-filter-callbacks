@@ -14,7 +14,7 @@ sub set {
   my ($self, $tokens, $org, $skipped_text) = @_;
 
   my ($name, @attrs) = @$tokens;
-  if (@attrs > 2 and $attrs[-1] eq '/' and $attrs[-2] eq '/') {
+  if (@attrs >= 2 and $attrs[-1] eq '/' and $attrs[-2] eq '/') {
     splice @attrs, -2, 2;
   }
 
@@ -27,8 +27,8 @@ sub set {
     append     => '',
     is_dirty   => 0,
     is_removed => 0,
-    is_end     => ($org =~ m|^</| ? 1 : 0),
-    is_empty   => ($org =~ m|/>$| ? 1 : 0),
+    is_end     => (substr($org, 0, 2) eq '</' ? 1 : 0),
+    is_empty   => (substr($org, -2, 2) eq '/>' ? 1 : 0),
   );
 }
 
@@ -56,9 +56,9 @@ sub as_string {
       $out .= $self->{name};
       my @attrs = @{ $self->{attrs} };
       while (my ($key, $value) = splice @attrs, 0, 2) {
-        $out .= " $key=$value";
+        $out .= " $key=$value" unless $key eq '/';
       }
-      $out .= ' /' if $self->{is_empty};
+      $out .= ' /' if $self->{is_empty} && substr($self->{name}, -1, 1) ne '/';
       $out .= '>';
     }
   }
