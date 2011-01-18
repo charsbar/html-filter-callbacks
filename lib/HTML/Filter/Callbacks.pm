@@ -5,7 +5,7 @@ use warnings;
 use base 'HTML::Parser';
 use HTML::Filter::Callbacks::Tag;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 my %Handlers = (
   start => [\&_handler, 'self,event,tokens,text,skipped_text'],
@@ -42,7 +42,7 @@ sub add_callbacks {
   while (my ($tag, $handlers) = splice @callbacks, 0, 2) {
     foreach my $event (keys %$handlers) {
       my $cb = $handlers->{$event};
-      push @{ $self->{__cb}{$tag}{$event} ||= [] }, $cb unless $self->{__seen}{$cb}++;
+      push @{ $self->{__cb}{lc $tag}{$event} ||= [] }, $cb unless $self->{__seen}{$cb}++;
     }
   }
 }
@@ -54,7 +54,7 @@ sub _add_chunk { push @{ $_[0]->{__res} }, $_[1] if defined $_[1] }
 sub _handler {
   my ($self, $event, $tokens, $org, $skipped_text) = @_;
   $self->{__tag}->set($tokens, $org, $skipped_text);
-  $self->_run($self->{__cb}{$self->{__tag}->name}{$event});
+  $self->_run($self->{__cb}{lc($self->{__tag}->name)}{$event});
   if ($self->{__cb}{'*'}) {
     $self->_run($self->{__cb}{'*'}{$event});
   }

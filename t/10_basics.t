@@ -61,7 +61,7 @@ __END__
 --- remove_script
 <html>
 <head>
-<script>
+<SCRIPT>
 <!-- javascript
 //-->
 </script>
