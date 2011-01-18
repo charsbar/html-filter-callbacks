@@ -1,5 +1,8 @@
 Revision history for HTML-Filter-Callbacks
 
+0.05 2011/01/18
+  - allows coderef reuse (xaicron++)
+
 0.04 2010/06/13
   - ignore cases of tags
 
