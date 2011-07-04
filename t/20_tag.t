@@ -134,7 +134,13 @@ my @callbacks = (
       my $html = $tag->as_string;
       like $html => qr{<hr />}, 'stays empty';
     },
-  }
+  },
+  hoge => {
+    start => sub {
+      my $tag = shift;
+      is $tag->attr('fuga') => 'piyo', 'got an attribute by fuga (original FuGa)';
+    },
+  },
 );
 
 plan tests => (scalar @callbacks / 2) + 4;
@@ -166,6 +172,7 @@ div body
 <form>
 </form>
 <hr clear="all" />
+<hoge FuGa="piyo" />
 </html>
 
 HTML
