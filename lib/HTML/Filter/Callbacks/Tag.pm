@@ -282,6 +282,8 @@ returns an HTML expression of the tag (with the skipped and inserted texts).
 
 Kenichi Ishigaki, E<lt>ishigaki@cpan.orgE<gt>
 
+Yuji Shimada E<lt>xaicron@cpan.orgE<gt>
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2009 by Kenichi Ishigaki.
