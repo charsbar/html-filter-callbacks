@@ -6,6 +6,8 @@ MANIFEST			This list of files
 README
 t/00_load.t
 t/10_basics.t
+t/20_tag.t
+t/30_code_reuse.t
 t/99_pod.t
 t/99_podcoverage.t
 t/lib/TestFilter.pm
