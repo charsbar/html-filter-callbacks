@@ -139,11 +139,15 @@ my @callbacks = (
     start => sub {
       my $tag = shift;
       is $tag->attr('fuga') => 'piyo', 'got an attribute by fuga (original FuGa)';
+      $tag->replace_attr('fuga' => 'hoge');
+      is $tag->attr('fuga') => 'hoge', 'replaced value';
+      $tag->remove_attr('fuga');
+      ok !$tag->attr('fuga'), 'removed';
     },
   },
 );
 
-plan tests => (scalar @callbacks / 2) + 4;
+plan tests => (scalar @callbacks / 2) + 6;
 $filter->add_callbacks(@callbacks);
 $filter->process(<<'HTML');
 <html>

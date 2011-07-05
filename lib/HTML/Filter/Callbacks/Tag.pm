@@ -95,7 +95,7 @@ sub remove_attr {
   return unless $self->{attrs};
   return unless defined $cond and length $cond;
 
-  $cond = qr/^$cond$/ unless ref $cond;
+  $cond = qr/^$cond$/i unless ref $cond;
 
   my $offset = scalar @{ $self->{attrs} };
   while ($offset > 0) {
@@ -113,7 +113,7 @@ sub replace_attr {
   return unless $self->{attrs};
   return unless defined $cond and length $cond;
 
-  $cond = qr/^$cond$/ unless ref $cond;
+  $cond = qr/^$cond$/i unless ref $cond;
 
   my $offset = scalar @{ $self->{attrs} };
   while ($offset > 0) {
