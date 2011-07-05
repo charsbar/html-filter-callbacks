@@ -175,9 +175,10 @@ sub attr {
 
   return unless $self->{attrs};
 
+  $name = lc $name;
   my $offset = scalar @{ $self->{attrs} };
   while ($offset > 0) {
-    if (lc $self->{attrs}->[$offset - 2] eq lc $name) {
+    if (lc $self->{attrs}->[$offset - 2] eq $name) {
       my $value = $self->_remove_quote($self->{attrs}->[$offset - 1]);
       return decode_entities($value);
     }
