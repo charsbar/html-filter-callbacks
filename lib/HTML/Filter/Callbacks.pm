@@ -42,7 +42,8 @@ sub add_callbacks {
   while (my ($tag, $handlers) = splice @callbacks, 0, 2) {
     foreach my $event (keys %$handlers) {
       my $cb = $handlers->{$event};
-      push @{ $self->{__cb}{lc $tag}{$event} ||= [] }, $cb unless $self->{__seen}{$event}{$cb}++;
+      my $lc_tag = lc $tag;
+      push @{ $self->{__cb}{$lc_tag}{$event} ||= [] }, $cb unless $self->{__seen}{"$lc_tag$event"}{$cb}++;
     }
   }
 }
