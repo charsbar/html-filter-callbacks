@@ -1,5 +1,8 @@
 Revision history for HTML-Filter-Callbacks
 
+0.08 2011/11/30
+  - fixed coderef reuse (charsbar)
+
 0.07 2011/07/06
   - fixed broken dist
   - ignore cases of remove_attr and replace_attr (xaicron)
