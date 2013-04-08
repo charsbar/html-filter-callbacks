@@ -25,6 +25,11 @@ add_callbacks(
       start => sub { shift->replace_attr(id => "pid") },
     },
   },
+  replace_tagname => {
+    p => {
+      start => sub { shift->replace_tag('span') },
+    },
+  },
   add_submit => {
     form => {
       start => sub {
@@ -134,6 +139,11 @@ __END__
 <p id="">
 ---
 <p id="pid">
+=== replace tagname
+--- replace_tagname
+<p id="pid">
+---
+<span id="pid">
 === br
 --- br_without_space
 <br/>

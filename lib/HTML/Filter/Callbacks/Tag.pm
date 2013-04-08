@@ -139,6 +139,13 @@ sub replace_attr {
   $self->{is_dirty} = 1;
 }
 
+sub replace_tag {
+    my ($self, $new_name) = @_;
+
+    $self->{name}     = $new_name;
+    $self->{is_dirty} = 1;
+}
+
 sub _remove_quote {
   my ($self, $value) = @_;
   my $open  = substr($value,  0, 1);
@@ -254,6 +261,10 @@ takes an attribute name to remove. You can also pass a regular expression if you
 =head2 replace_attr
 
 takes an attribute name and its value to replace. You can also pass a regular expression if you replace arbitrary attributes.
+
+=head2 replace_tag
+
+takes an tag name and its value to replace.
 
 =head2 remove_tag
 
