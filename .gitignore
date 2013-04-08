@@ -8,3 +8,9 @@ Makefile.old
 nytprof.out
 MANIFEST.bak
 *.sw[po]
+/HTML-Filter-Callbacks-*
+/.build
+/_build_params
+/Build
+!Build/
+!META.json
