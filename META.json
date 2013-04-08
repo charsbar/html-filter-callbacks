@@ -65,10 +65,10 @@
          "web" : "https://github.com/charsbar/html-filter-callbacks"
       }
    },
-   "version" : "0.08",
+   "version" : "0.09",
    "x_contributors" : [
       "ishigaki <ishigaki@localhost.localdomain>",
       "cos31 <cos31@ymail.com>",
-      "Yuji Shimada <xaicron@gmail.com>"
+      "xaicron <xaicron@gmail.com>"
    ]
 }

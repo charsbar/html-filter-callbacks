@@ -1,5 +1,10 @@
 Revision history for HTML-Filter-Callbacks
 
+{{$NEXT}}
+
+0.09 2013-04-08T12:53:54Z
+  - added replace_tag method (cos31++)
+
 0.08 2011/11/30
   - fixed coderef reuse (charsbar)
 
