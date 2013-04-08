@@ -145,9 +145,19 @@ my @callbacks = (
       ok !$tag->attr('fuga'), 'removed';
     },
   },
+  custom => {
+    start => sub {
+      my $tag = shift;
+      is $tag->attr('id') => 'my_custom', 'got an attribute';
+      $tag->replace_tag('div');
+      is $tag->name => 'div', 'replaced tag';
+      my $html = $tag->as_string;
+      like $html => qr{<div id="my_custom" />}, 'replaced tag. keep attribute';
+    },
+  },
 );
 
-plan tests => (scalar @callbacks / 2) + 6;
+plan tests => (scalar @callbacks / 2) + 8;
 $filter->add_callbacks(@callbacks);
 $filter->process(<<'HTML');
 <html>
@@ -177,6 +187,7 @@ div body
 </form>
 <hr clear="all" />
 <hoge FuGa="piyo" />
+<custom id="my_custom" />
 </html>
 
 HTML
